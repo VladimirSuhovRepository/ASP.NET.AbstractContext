@@ -7,16 +7,22 @@ using System.Threading.Tasks;
 
 namespace AbstractContext
 {
-    public class FakeContext : IFakeContext
+    public class FakeContext : IDbContext
     {
         public FakeContext()
         {
             Users = new UserDbSet();
         }
         public virtual IDbSet<User> Users { get; set; }
-        public int SaveChanges()
+
+        public void Dispose()
         {
-            return 0;
+            throw new NotImplementedException();
+        }
+
+        public void SaveChanges()
+        {
+            
         }
     }
 }

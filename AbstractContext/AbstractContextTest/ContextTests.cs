@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AbstractContext;
 using System.Data.Entity;
+using Ninject;
 
 namespace AbstractContextTest
 {
@@ -12,11 +13,10 @@ namespace AbstractContextTest
         [TestMethod]
         public void FakeGetCustomer()
         {
-            var user = new User { Name = "Test without database" };
-            var context = new FakeContext();
-            var rep = new UserRepository(context);
-            rep.AddUser(user);
-            Assert.AreEqual("Test without database", rep.GetUser(0).Name);
+            var AppKernel = new StandardKernel(new ResolverConfigModule());
+
+            var warrior = AppKernel.Get<ActionClass>();
+            Assert.AreEqual("Test without database", warrior.DoWork());
         }
 
     }
